@@ -17,6 +17,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="D&#xfc;zenle"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuduzenleActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menusil">
           <Properties>
@@ -25,6 +28,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Sil"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menusilActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menugoster">
           <Properties>
@@ -207,6 +213,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtadsoyad">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -214,6 +223,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txttelefon">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -298,16 +310,27 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Yeni Kay&#x131;t"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnyenikayitActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnkaydet">
           <Properties>
             <Property name="text" type="java.lang.String" value="Kaydet"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnkaydetActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnduzenle">
           <Properties>
             <Property name="text" type="java.lang.String" value="D&#xfc;zenle"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnduzenleActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -351,7 +374,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tblBasvuruTablosu">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="30">
@@ -394,7 +417,6 @@
                     <Column editable="true" title="Yabanc&#x131; Dil" type="java.lang.String"/>
                   </Table>
                 </Property>
-                <Property name="cellSelectionEnabled" type="boolean" value="true"/>
                 <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
                   <ComponentRef name="jPopupMenu1"/>
                 </Property>

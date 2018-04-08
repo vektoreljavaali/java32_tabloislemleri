@@ -5,17 +5,30 @@
  */
 package GUI;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author vektorel
  */
 public class TabloKayit extends javax.swing.JFrame {
 
+    int sayac =-1;
+    int secilensatir=0;
     /**
      * Creates new form TabloKayit
      */
     public TabloKayit() {
         initComponents();
+        
+        tblBasvuruTablosu.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tblBasvuruTablosu.getColumnModel().getColumn(1).setPreferredWidth(70);
+        tblBasvuruTablosu.getColumnModel().getColumn(2).setPreferredWidth(60);
+        tblBasvuruTablosu.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tblBasvuruTablosu.getColumnModel().getColumn(4).setPreferredWidth(40);
+        tblBasvuruTablosu.getColumnModel().getColumn(5).setPreferredWidth(150);
+        
     }
 
     /**
@@ -54,14 +67,24 @@ public class TabloKayit extends javax.swing.JFrame {
         btnduzenle = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblBasvuruTablosu = new javax.swing.JTable();
 
         menuduzenle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Edit Property_48px.png"))); // NOI18N
         menuduzenle.setText("Düzenle");
+        menuduzenle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuduzenleActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(menuduzenle);
 
         menusil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Delete_48px.png"))); // NOI18N
         menusil.setText("Sil");
+        menusil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menusilActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(menusil);
 
         menugoster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Save Archive_48px.png"))); // NOI18N
@@ -76,7 +99,11 @@ public class TabloKayit extends javax.swing.JFrame {
 
         jLabel1.setText("Ad Soyad");
 
+        txtadsoyad.setEnabled(false);
+
         jLabel2.setText("Telefon");
+
+        txttelefon.setEnabled(false);
 
         jLabel3.setText("Cinsiyet");
 
@@ -108,10 +135,27 @@ public class TabloKayit extends javax.swing.JFrame {
         chkcince.setText("Çince");
 
         btnyenikayit.setText("Yeni Kayıt");
+        btnyenikayit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnyenikayitActionPerformed(evt);
+            }
+        });
 
         btnkaydet.setText("Kaydet");
+        btnkaydet.setEnabled(false);
+        btnkaydet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnkaydetActionPerformed(evt);
+            }
+        });
 
         btnduzenle.setText("Düzenle");
+        btnduzenle.setEnabled(false);
+        btnduzenle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnduzenleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,7 +258,7 @@ public class TabloKayit extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 102, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblBasvuruTablosu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"", null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -259,9 +303,8 @@ public class TabloKayit extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setCellSelectionEnabled(true);
-        jTable1.setComponentPopupMenu(jPopupMenu1);
-        jScrollPane1.setViewportView(jTable1);
+        tblBasvuruTablosu.setComponentPopupMenu(jPopupMenu1);
+        jScrollPane1.setViewportView(tblBasvuruTablosu);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -285,6 +328,119 @@ public class TabloKayit extends javax.swing.JFrame {
     private void chkruscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkruscaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkruscaActionPerformed
+
+    private void btnkaydetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkaydetActionPerformed
+     
+        String adsoyad = txtadsoyad.getText();
+        String telefon = txttelefon.getText();
+        String cinsiyet= rbtnerkek.isSelected()==true ? "Erkek" : "Kadın";
+        String meslek = cmbmeslek.getSelectedItem().toString();
+        int yas = (int)spinneryas.getValue();
+        String yabancidil="";
+        yabancidil += chkingilizce.isSelected()==true ? "İngilizce, " : "";
+        yabancidil += chkcince.isSelected()==true ? "Çince, " : "";
+        yabancidil += chkfransizca.isSelected()==true ? "Fransızca, " : "";
+        yabancidil += chkrusca.isSelected()==true ? "Rusça, " : "";
+        
+        tblBasvuruTablosu.setValueAt(adsoyad, sayac, 0);
+        tblBasvuruTablosu.setValueAt(telefon, sayac, 1);
+        tblBasvuruTablosu.setValueAt(cinsiyet, sayac, 2);
+        tblBasvuruTablosu.setValueAt(meslek, sayac, 3);
+        tblBasvuruTablosu.setValueAt(yas, sayac, 4);
+        tblBasvuruTablosu.setValueAt(yabancidil, sayac, 5);
+        btnkaydet.setEnabled(false);
+        btnyenikayit.setEnabled(true);
+        txtadsoyad.setEnabled(false);
+        txttelefon.setEnabled(false);
+        
+      
+    }//GEN-LAST:event_btnkaydetActionPerformed
+
+    private void btnyenikayitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnyenikayitActionPerformed
+       
+          
+        sayac++;
+        btnkaydet.setEnabled(true);
+        btnyenikayit.setEnabled(false);
+        txtadsoyad.setText("");
+        txttelefon.setText("");
+        txtadsoyad.setEnabled(true);
+        txttelefon.setEnabled(true);
+        
+        
+    }//GEN-LAST:event_btnyenikayitActionPerformed
+
+    private void menusilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menusilActionPerformed
+        int secilen = tblBasvuruTablosu.getSelectedRow();
+        DefaultTableModel tbl = (DefaultTableModel)tblBasvuruTablosu.getModel();
+        tbl.removeRow(secilen);
+        
+    }//GEN-LAST:event_menusilActionPerformed
+
+    private void menuduzenleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuduzenleActionPerformed
+        int secilen = tblBasvuruTablosu.getSelectedRow();
+        secilensatir = secilen;
+        String adsoyad = tblBasvuruTablosu.getValueAt(secilen,0).toString();
+        String telefon = tblBasvuruTablosu.getValueAt(secilen,1).toString();
+        String cinsiyet= tblBasvuruTablosu.getValueAt(secilen,2).toString();
+        String meslek = tblBasvuruTablosu.getValueAt(secilen,3).toString();
+        String yas =tblBasvuruTablosu.getValueAt(secilen,4).toString();
+        String yabancidil=tblBasvuruTablosu.getValueAt(secilen,5).toString();
+        txtadsoyad.setText(adsoyad);
+        txttelefon.setText(telefon);
+        if(cinsiyet.equals("Erkek"))
+            rbtnerkek.setSelected(true);
+                else
+           rbtnkadin.setSelected(true);
+        cmbmeslek.setSelectedItem(meslek);
+        spinneryas.setValue(Integer.parseInt(yas));
+        chkcince.setSelected(false);
+        chkfransizca.setSelected(false);
+        chkingilizce.setSelected(false);
+        chkrusca.setSelected(false);
+        
+        
+           String[] mydizi =   yabancidil.split(",");
+               for (String string : mydizi) {
+            if(chkcince.getText().equals(string.trim())) chkcince.setSelected(true);
+            else if(chkfransizca.getText().equals(string.trim())) chkfransizca.setSelected(true);
+            else if(chkingilizce.getText().equals(string.trim())) chkingilizce.setSelected(true);
+            else if(chkrusca.getText().equals(string.trim())) chkrusca.setSelected(true);
+                           
+        }
+               
+           btnyenikayit.setEnabled(false);
+           btnduzenle.setEnabled(true);
+           txtadsoyad.setEnabled(true);
+           txttelefon.setEnabled(true);
+         
+               
+    }//GEN-LAST:event_menuduzenleActionPerformed
+
+    private void btnduzenleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnduzenleActionPerformed
+         btnyenikayit.setEnabled(true);
+         btnduzenle.setEnabled(false);
+         txtadsoyad.setEnabled(false);
+         txttelefon.setEnabled(false);
+            String adsoyad = txtadsoyad.getText();
+        String telefon = txttelefon.getText();
+        String cinsiyet= rbtnerkek.isSelected()==true ? "Erkek" : "Kadın";
+        String meslek = cmbmeslek.getSelectedItem().toString();
+        int yas = (int)spinneryas.getValue();
+        String yabancidil="";
+        yabancidil += chkingilizce.isSelected()==true ? "İngilizce, " : "";
+        yabancidil += chkcince.isSelected()==true ? "Çince, " : "";
+        yabancidil += chkfransizca.isSelected()==true ? "Fransızca, " : "";
+        yabancidil += chkrusca.isSelected()==true ? "Rusça, " : "";
+        
+        tblBasvuruTablosu.setValueAt(adsoyad, secilensatir, 0);
+        tblBasvuruTablosu.setValueAt(telefon, secilensatir, 1);
+        tblBasvuruTablosu.setValueAt(cinsiyet, secilensatir, 2);
+        tblBasvuruTablosu.setValueAt(meslek, secilensatir, 3);
+        tblBasvuruTablosu.setValueAt(yas, secilensatir, 4);
+        tblBasvuruTablosu.setValueAt(yabancidil, secilensatir, 5);
+               
+    }//GEN-LAST:event_btnduzenleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,13 +497,13 @@ public class TabloKayit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenuItem menuduzenle;
     private javax.swing.JMenuItem menugoster;
     private javax.swing.JMenuItem menusil;
     private javax.swing.JRadioButton rbtnerkek;
     private javax.swing.JRadioButton rbtnkadin;
     private javax.swing.JSpinner spinneryas;
+    private javax.swing.JTable tblBasvuruTablosu;
     private javax.swing.JTextField txtadsoyad;
     private javax.swing.JFormattedTextField txttelefon;
     // End of variables declaration//GEN-END:variables
